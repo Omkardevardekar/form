@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .con {
+            width: 100%;
+            height: 100vh;
+            background: conic-gradient(red, yellow, orange, blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .con1 {
+            width: 50%;
+            height: auto;
+            border: 2px double black;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <div class="con1">
+            <form>
+                <input type="text" placeholder="Enter name" />
+                <input type="text" placeholder="Phone number" />
+                <input type="text" placeholder="Email" />
+                <input type="date">
+                <div>
+                    <input type="radio" value="male" name="gen" checked /> Male
+                    <input type="radio" value="female" name="gen" /> Female
+                </div>
+                <select>
+                    <option value="maha">Maharashtra</option>
+                    <option value="hyadra">Hyderabad</option>
+                    <option value="dubai">Dubai</option>
+                </select>
+                <input type="button" onclick="add()" value="Add">
+            </form>
+            <table>
+                <!-- Table rows will be dynamically added here -->
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let ipr = document.getElementsByTagName("input");
+        let sr = document.getElementsByTagName("select")[0];
+        let tbl = document.getElementsByTagName("table")[0];
+        let a = [];
+
+        let disp = () => {
+            let s = `
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>DOB</th>
+                    <th>Gender</th>
+                    <th>State</th>
+                </tr>`;
+            for (let i = 0; i < a.length; i++) {
+                s += `<tr>
+                    <td>${i + 1}</td>
+                    <td>${a[i].name}</td>
+                    <td>${a[i].phno}</td>
+                    <td>${a[i].email}</td>
+                    <td>${a[i].dob}</td>
+                    <td>${a[i].gen}</td>
+                    <td>${a[i].state}</td>
+                </tr>`;
+            }
+            tbl.innerHTML = s;
+        };
+
+        let add = () => {
+            let obj = {};
+            obj.name = ipr[0].value;
+            obj.phno = ipr[1].value;
+            obj.email = ipr[2].value;
+            obj.dob = ipr[3].value;
+            obj.gen = ipr[4].checked ? "male" : "female";
+            obj.state = sr.value;
+            a.push(obj);
+            document.querySelector("form").reset(); // Clear the form after adding
+            disp(); // Display the updated table
+        };
+    </script>
+</body>
+</html>
